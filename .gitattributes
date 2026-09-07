@@ -25,3 +25,10 @@
 # shell scripts must reach Linux build machines (Render) with LF endings,
 # even when committed from Windows
 *.sh text eol=lf
+
+# README screenshots: PLAIN git blobs, never LFS. They are small, and a README
+# image is re-fetched on every page view - through LFS that would burn the
+# bandwidth quota the Render deploys already spend.
+media/**/*.png !filter !diff !merge -text
+media/**/*.jpg !filter !diff !merge -text
+media/**/*.gif !filter !diff !merge -text

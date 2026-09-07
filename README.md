@@ -1,18 +1,25 @@
-# Rival Minds - a live reinforcement-learning tournament
+<div align="center">
+
+<img src="media/logo.png" alt="Rival Minds" width="420">
+
+### A live reinforcement-learning tournament
 
 Two agents, **Red** and **Blue**, play the **same** task head-to-head while you
-watch them learn (or plan) live and on-screen. It is a five-round tournament, and
-each round pits two **rival algorithms** against each other in a themed arena.
-The table shows the defaults; the start menu accepts any algorithm from that
-round's compatible family:
+watch them learn (or plan) live and on-screen. Five rounds, five algorithm
+families, one 3D arena each.
 
-| Round | Arena          | Red vs Blue                                                                               |
-| ----- | -------------- | ----------------------------------------------------------------------------------------- |
-| 1     | Peach's Castle | **Value Iteration** vs **Policy Iteration** (Dynamic Programming: a stochastic maze race) |
-| 2     | New Donk City  | **Every-visit MC** vs **First-visit MC** (Monte-Carlo)                                    |
-| 3     | Fossil Falls   | **SARSA** vs **Q-Learning** (on-policy vs off-policy TD)                                  |
-| 4     | Ruined Kingdom | **DQN** vs **Double-DQN** (continuous, function approximation)                            |
-| 5     | Tostarena      | **Actor-Critic** vs **PPO** (Policy Gradient)                                             |
+<img src="https://img.shields.io/badge/Python-3.10%2B-3776AB?logo=python&logoColor=white" alt="Python 3.10+">
+<img src="https://img.shields.io/badge/build-none-2ea44f" alt="No build step">
+<img src="https://img.shields.io/badge/three.js-vendored-000000?logo=threedotjs&logoColor=white" alt="three.js vendored">
+<img src="https://img.shields.io/badge/algorithms-13-a855f7" alt="13 algorithms">
+
+<img src="media/menu.jpg" alt="The Rival Minds start menu" width="900">
+
+</div>
+
+---
+
+## What it is
 
 The two models are **real Python reinforcement learning** running in a background
 thread; the browser is a live 3D viewer that polls the match and renders it. Each
@@ -25,6 +32,173 @@ You pick the two characters in the start menu: **Blue is you**, **Red is the CPU
 Red uses the CPU character's compatible algorithm; Blue uses your selected
 algorithm.
 
+<table>
+<tr>
+<td width="50%"><img src="media/characters.jpg" alt="Character select"></td>
+<td width="50%"><img src="media/algorithms.jpg" alt="The five algorithm family cards"></td>
+</tr>
+<tr>
+<td align="center"><b>Draft your line-up.</b> Ten characters, each a difficulty
+tier that maps to real hyperparameters.</td>
+<td align="center"><b>Five families, one pick each.</b> The card you choose is
+the algorithm Blue plays in that round.</td>
+</tr>
+</table>
+
+<div align="center">
+<img src="media/howto.jpg" alt="The How It Works walkthrough" width="720">
+<br>
+<i>A four-card walkthrough explains the whole tournament before you start.</i>
+</div>
+
+## The tournament
+
+Each round pits two **rival algorithms** against each other in a themed arena.
+The table shows the defaults; the start menu accepts any algorithm from that
+round's compatible family:
+
+| Round | Arena          | Red vs Blue                                                                               |
+| ----- | -------------- | ----------------------------------------------------------------------------------------- |
+| 1     | Peach's Castle | **Value Iteration** vs **Policy Iteration** (Dynamic Programming: a stochastic maze race) |
+| 2     | New Donk City  | **Every-visit MC** vs **First-visit MC** (Monte-Carlo)                                    |
+| 3     | Fossil Falls   | **SARSA** vs **Q-Learning** (on-policy vs off-policy TD)                                  |
+| 4     | Ruined Kingdom | **DQN** vs **Double-DQN** (continuous, function approximation)                            |
+| 5     | Dry Dry Desert | **Actor-Critic** vs **PPO** (Policy Gradient)                                             |
+
+<table>
+<tr>
+<td width="50%"><img src="media/round1.jpg" alt="Round 1, Peach's Castle"></td>
+<td width="50%"><img src="media/round2.jpg" alt="Round 2, New Donk City"></td>
+</tr>
+<tr>
+<td align="center"><b>1 &middot; Peach's Castle</b><br>Dynamic Programming. Ice
+tiles slip, Mystery Blocks gamble, and the model is known, so both sides
+<i>plan</i> instead of sampling.</td>
+<td align="center"><b>2 &middot; New Donk City</b><br>Monte-Carlo. Collect three
+tomatoes, then reach the goal, learning only from whole-episode returns.</td>
+</tr>
+<tr>
+<td width="50%"><img src="media/round3.jpg" alt="Round 3, Fossil Falls"></td>
+<td width="50%"><img src="media/round4.jpg" alt="Round 4, Ruined Kingdom"></td>
+</tr>
+<tr>
+<td align="center"><b>3 &middot; Fossil Falls</b><br>Temporal Difference. A random
+perfect maze, patrolling Goombas, SARSA against Q-Learning.</td>
+<td align="center"><b>4 &middot; Ruined Kingdom</b><br>Deep RL. Continuous physics,
+a 55-vector observation, Banzai Bills to dodge, three hearts each.</td>
+</tr>
+<tr>
+<td width="50%"><img src="media/round5.jpg" alt="Round 5, Dry Dry Desert"></td>
+<td width="50%" valign="top">
+
+**5 &middot; Dry Dry Desert**
+
+Policy Gradient. Capture the flag: grab it from the centre, carry it to your
+base, and lose it instantly to a tag. Crates drop kart weapons fired from a
+tenth action, and Bowser's airship throws objects the policy has to dodge.
+
+First to **3 captures** takes the tournament's last stage points.
+
+</td>
+</tr>
+</table>
+
+## Run
+
+```sh
+python serve.py
+```
+
+A local server starts, runs the two models live, and opens the game in your
+browser. Keep the console window open. (Needs Python 3 + `gymnasium` + `numpy`;
+`torch` only for the DQN rounds.)
+
+There is no build step and no package manager: three.js is vendored, and that
+one script serves the whole game.
+
+## What you are looking at
+
+The HUD names both algorithms, tracks the live win bars, and marks the five
+rounds as dots. Everything else lives in the **Control panel** (`C`), a docked
+menu whose tab row walks from "what is the task" all the way to "what has the
+model actually learned".
+
+<table>
+<tr>
+<td width="50%"><img src="media/panel-challenge.jpg" alt="The Challenge tab"></td>
+<td width="50%"><img src="media/panel-progress.jpg" alt="The Progress tab"></td>
+</tr>
+<tr>
+<td align="center"><b>Challenge.</b> The MDP card: the goal, how a round plays
+out, the move set and the step cap, generated live from the running arena.</td>
+<td align="center"><b>Progress.</b> Episode counters and the learning curves:
+return, episode length, epsilon and win rate over time.</td>
+</tr>
+<tr>
+<td width="50%"><img src="media/panel-tune.jpg" alt="The Tune tab"></td>
+<td width="50%"><img src="media/panel-inside.jpg" alt="The Inside tab"></td>
+</tr>
+<tr>
+<td align="center"><b>Tune.</b> Alpha, gamma and the epsilon schedule, live.
+Move a slider and the learning changes under you.</td>
+<td align="center"><b>Inside.</b> The value map switch, policy agreement, DP
+residuals and the per-algorithm internals.</td>
+</tr>
+<tr>
+<td width="50%"><img src="media/panel-advanced.jpg" alt="The World tab"></td>
+<td width="50%"><img src="media/panel-score.jpg" alt="The Score tab"></td>
+</tr>
+<tr>
+<td align="center"><b>World.</b> The deeper knobs: run length, algorithm
+internals, environment dynamics, the reproducibility seed.</td>
+<td align="center"><b>Score.</b> The head-to-head tally and recent win-rate
+bars, per round and across the tournament.</td>
+</tr>
+<tr>
+<td width="50%"><img src="media/panel-replays.jpg" alt="The Replays tab"></td>
+<td width="50%" valign="top">
+
+**Replays**
+
+Every model keeps its best complete winning runs. Pick one and the board
+replays it with the policy, value, Q and visit context **frozen at that
+episode**, so you are watching what the model knew then, not what it knows now.
+
+There is a Milestones category too: the first win, the first goal, the first
+death by hazard.
+
+</td>
+</tr>
+</table>
+
+## Seeing inside the model
+
+The overlays put the learned numbers straight onto the board: **Value** prints
+V(s) on every square, **Policy** draws the greedy action as one arrow per tile,
+and **Visits** paints how often each tile has been tried. Click a tile in any
+mode to read its per-action **Q(s, a)**.
+
+<table>
+<tr>
+<td width="50%"><img src="media/round1-policy.jpg" alt="The greedy policy arrows"></td>
+<td width="50%"><img src="media/round2-value.jpg" alt="V(s) printed on every tile"></td>
+</tr>
+<tr>
+<td align="center"><b>What it would do.</b> One arrow per tile. Dynamic
+Programming has swept the whole castle, so every square already points
+somewhere.</td>
+<td align="center"><b>What it thinks a square is worth.</b> Monte-Carlo fills
+V(s) in from the goal backwards, so the numbers thin out where it rarely
+finished an episode.</td>
+</tr>
+</table>
+
+<div align="center">
+<img src="media/round3-policy.jpg" alt="The policy across the Fossil Falls maze" width="620">
+<br>
+<i>The same overlay on Fossil Falls: a 19x19 perfect maze solved one TD step at a time.</i>
+</div>
+
 ## The five rooms - states, rewards, and the hyperparameters that solve them
 
 Every room is a small **escape room**: reach its single terminal (the goal / final
@@ -34,7 +208,14 @@ room to room (bigger state space, more actions, dynamic hazards). The "tuned" va
 below are the Blue defaults the app ships with (they solve each room reliably); every
 one is live-editable from the Control panel (`C`).
 
-### Room 1 - Peach's Castle (Dynamic Programming: Value Iteration vs Policy Iteration)
+Each room folds open below: the full MDP, the ten-character CPU ladder, and the
+measured hyperparameter search that found the best settings against Parabones.
+
+<details>
+<summary><b>Room 1 - Peach's Castle (Dynamic Programming: Value Iteration vs Policy Iteration)</b></summary>
+<br>
+
+<img src="media/round1.jpg" alt="Peach's Castle" width="100%">
 
 Model **known**, so we _plan_ with the Bellman equations instead of sampling.
 
@@ -92,7 +273,13 @@ values slow the value wave without changing the route, and lower ones do not
 speed it further; theta 1e-5 because a looser threshold stops the plan before
 the coin detours are priced correctly.
 
-### Room 2 - New Donk City (Monte-Carlo control: First-visit vs Every-visit)
+</details>
+
+<details>
+<summary><b>Room 2 - New Donk City (Monte-Carlo control: First-visit vs Every-visit)</b></summary>
+<br>
+
+<img src="media/round2.jpg" alt="New Donk City" width="100%">
 
 Model **unknown**; the agent learns only from **complete-episode returns** (no
 bootstrapping). A creative extra beyond the brief's SARSA/Q pair - Monte Carlo completes
@@ -150,7 +337,13 @@ keeps rare full-course returns flowing while the table is still forming; and
 the low 0.02 floor matters because at 400 steps per episode even 5% random
 moves eventually step into a plant zone.
 
-### Room 3 - Fossil Falls (Temporal-Difference control: SARSA vs Q-Learning)
+</details>
+
+<details>
+<summary><b>Room 3 - Fossil Falls (Temporal-Difference control: SARSA vs Q-Learning)</b></summary>
+<br>
+
+<img src="media/round3.jpg" alt="Fossil Falls" width="100%">
 
 Model **unknown**, learned online with **one-step TD** - **SARSA** (on-policy) races
 **Q-Learning** (off-policy) head-to-head, so the brief's Room-2 (SARSA) and Room-3
@@ -205,7 +398,13 @@ random, Parabones a near-optimal 2%.
   endgame because in a head-to-head race every residual random step is a lost
   tempo; gamma 0.98 prices the ~40-step route without slowing propagation.
 
-### Room 4 - Ruined Kingdom (Deep RL / function approximation: DQN vs Double-DQN)
+</details>
+
+<details>
+<summary><b>Room 4 - Ruined Kingdom (Deep RL / function approximation: DQN vs Double-DQN)</b></summary>
+<br>
+
+<img src="media/round4.jpg" alt="Ruined Kingdom" width="100%">
 
 Model **unknown**, state **continuous**, so a neural network approximates Q. Built to
 the brief's spec: a **10 x 10 metre** room, a **0.02 s** decision step, and **discrete
@@ -266,7 +465,13 @@ staying alive is a hundreds-of-steps horizon; eps floor 0.03 because every
 random step in a barrage is a heart risk; and the stock replay/target-sync
 values were confirmed by the sync-250 probe changing nothing.
 
-### Room 5 - Dry Dry Desert (Policy Gradient: Actor-Critic vs PPO, also REINFORCE)
+</details>
+
+<details>
+<summary><b>Room 5 - Dry Dry Desert (Policy Gradient: Actor-Critic vs PPO, also REINFORCE)</b></summary>
+<br>
+
+<img src="media/round5.jpg" alt="Dry Dry Desert" width="100%">
 
 Model **unknown**, and the policy itself is a network (policy-_based_, not value-based) -
 it **samples** its actions, so there is no epsilon; exploration comes from an **entropy
@@ -333,20 +538,13 @@ policy steps compound over 4 reuse epochs (0.46 demonstrably destabilizes);
 gamma 0.98 covers the grab-to-capture chain; and the stock horizon/clip/epoch
 values were each probed and not beaten cleanly.
 
+</details>
+
 The CPU (Red) reads the same knobs, but its values come from the chosen character's
 **difficulty tier** (10 characters, easy -> hard): a weaker character learns slower
 (lower alpha), plans less far (lower gamma), and stays more random (higher epsilon, or
 higher entropy in Room 5); a stronger one converges fast and plays near-optimally.
 
-## Run
-
-```sh
-python serve.py
-```
-
-A local server starts, runs the two models live, and opens the game in your
-browser. Keep the console window open. (Needs Python 3 + `gymnasium` + `numpy`;
-`torch` only for the DQN rounds.)
 
 ## Controls
 
@@ -354,11 +552,12 @@ browser. Keep the console window open. (Needs Python 3 + `gymnasium` + `numpy`;
 | ------------- | -------------------------------------------- |
 | `R`           | **Reset** both models (relearn from scratch) |
 | `C`           | Open/close the shared **Control** panel      |
+| `ESC`         | Quit the run and return to the start menu    |
 | Mouse drag    | Pan the camera                               |
 | WASD / arrows | Pan the camera                               |
 | Scroll wheel  | Zoom                                         |
 
-## The Control panel (C)
+## Control panel reference
 
 - **Playback** - play/pause, speed (slow = watch them walk, fast = thousands of
   iterations fly by), reset, new world, and prev/next round.
