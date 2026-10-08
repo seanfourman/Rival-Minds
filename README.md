@@ -13,7 +13,7 @@ families, one 3D arena each.
 <img src="https://img.shields.io/badge/three.js-vendored-000000?logo=threedotjs&logoColor=white" alt="three.js vendored">
 <img src="https://img.shields.io/badge/algorithms-13-a855f7" alt="13 algorithms">
 
-<img src="media/menu.jpg" alt="The Rival Minds start menu" width="900">
+<img src="media/trailer-teaser.gif" alt="Rival Minds in motion: the five worlds, live training and the award ceremony" width="900">
 
 </div>
 
@@ -115,6 +115,24 @@ browser. Keep the console window open. (Needs Python 3 + `gymnasium` + `numpy`;
 
 There is no build step and no package manager: three.js is vendored, and that
 one script serves the whole game.
+
+### Sound
+
+Every sound is **synthesized live in the browser** with the Web Audio API out of
+NES-style pulse, triangle and noise voices, so the game ships no audio files at all:
+
+- an original chiptune theme per world (a castle waltz, a big-band swing for New
+  Donk City, an adventure march, a dark Ruined Kingdom theme, desert mariachi) plus
+  the menu theme and a final-standings march, with a quiet ambience bed per world
+  (waterfall, wind, distant thunder)
+- Mario-style effects for what the agents actually do: coins, "?" blocks, tomatoes,
+  pipe warps, Piranha Plant chomps, Goombas, Banzai Bills, flag grabs and captures,
+  shells, bananas, oil and Chain Chomps
+- a voice sting for each of the ten characters, menu and panel sounds, the iris
+  wipes, and fanfares for the award ceremony
+
+`M` cycles between everything, music off, and muted (or use the speaker button on
+the start menu). The setting is remembered.
 
 ## What you are looking at
 
@@ -552,6 +570,7 @@ higher entropy in Room 5); a stronger one converges fast and plays near-optimall
 | ------------- | -------------------------------------------- |
 | `R`           | **Reset** both models (relearn from scratch) |
 | `C`           | Open/close the shared **Control** panel      |
+| `M`           | Sound: everything / music off / muted        |
 | `ESC`         | Quit the run and return to the start menu    |
 | Mouse drag    | Pan the camera                               |
 | WASD / arrows | Pan the camera                               |
@@ -623,6 +642,7 @@ in [`CODE_MAP.md`](CODE_MAP.md); the from-zero course guide is
 | `src/panel.js`                                           | The shared model/control panel (C)                                                  |
 | `src/graphs.js`                                          | Learning-curve / DP-convergence charts + episode replay                             |
 | `src/heatmap.js`                                         | The learned-value heatmap overlay                                                   |
+| `src/sound.js`                                           | Synthesized chiptune music + sound effects (Web Audio, no audio files)              |
 | `vendor/three/`                                          | Bundled three.js (no package manager needed)                                        |
 
 ## API (for the curious)

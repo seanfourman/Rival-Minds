@@ -16,6 +16,7 @@ import { initHuman } from "./human.js";
 import { createLoadScreen } from "./loadscreen.js";
 import { loadBoardWalkers } from "./boardchars.js";
 import { initDevBar } from "./devbar.js";
+import { initSound } from "./sound.js";
 import { HDRLoader } from "three/addons/loaders/HDRLoader.js";
 
 const app = document.getElementById("app");
@@ -175,6 +176,10 @@ const awardCeremony = createAwardCeremony({
   onDone: () => control({ cmd: "nextRound" }),
   onExit: () => returnToStartMenu(),
 });
+// synthesized chiptune music + sound effects. Created after the HUD so its "M Sound"
+// hint can join the key row; it follows the snapshots + UI classes on its own, and
+// only needs telling which world (or the menu) is on screen via setScene().
+const sound = initSound();
 
 // keep downloaded files (textures, .dae) resident so a re-load never re-fetches
 THREE.Cache.enabled = true;
@@ -237,6 +242,7 @@ function rebuildWorld(worldJson) {
   setCell(theme.cell || 1); // per-round board square size (1 = original); resets each round
   setOffset(...(theme.offset || [0, 0])); // per-round arena slide (resets each round)
   applyTheme(theme);
+  sound.setScene(key); // this world's theme music (held under an iris until it opens)
   rig.setView?.(theme.camera); // cinematic per-theme framing if the rig supports it
   const rows = worldJson.rows;
 
@@ -1069,6 +1075,7 @@ window.RL = {
     );
   },
   replay,
+  sound,
 };
 // ---- the single docked control menu (#rl-panel). C toggles it; the header's model
 // selector switches the your-model / CPU views WITHIN it (handled in panel.js). ----
@@ -1148,6 +1155,7 @@ async function startFromMenu() {
 }
 
 function showStartMenu() {
+  sound.setScene("menu");
   menu = createStartMenu({
     scene,
     camera,
