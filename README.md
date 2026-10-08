@@ -8,6 +8,8 @@ Two agents, **Red** and **Blue**, play the **same** task head-to-head while you
 watch them learn (or plan) live and on-screen. Five rounds, five algorithm
 families, one 3D arena each.
 
+<a href="https://rival-minds.onrender.com/"><img src="https://img.shields.io/badge/%E2%96%B6%20Play%20online-rival--minds.onrender.com-e52521?style=for-the-badge" alt="Play online at rival-minds.onrender.com"></a>
+
 <img src="https://img.shields.io/badge/Python-3.10%2B-3776AB?logo=python&logoColor=white" alt="Python 3.10+">
 <img src="https://img.shields.io/badge/build-none-2ea44f" alt="No build step">
 <img src="https://img.shields.io/badge/three.js-vendored-000000?logo=threedotjs&logoColor=white" alt="three.js vendored">
@@ -115,6 +117,11 @@ browser. Keep the console window open. (Needs Python 3 + `gymnasium` + `numpy`;
 
 There is no build step and no package manager: three.js is vendored, and that
 one script serves the whole game.
+
+Or skip the install and play the hosted version at
+**[rival-minds.onrender.com](https://rival-minds.onrender.com/)**. It runs on a free
+plan, so the first visit after a quiet spell can take up to a minute while the
+server wakes up, and all visitors share one live match.
 
 ### Sound
 
