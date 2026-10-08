@@ -17,7 +17,7 @@ families, one 3D arena each.
 
 <img src="media/trailer-teaser.gif" alt="Rival Minds in motion: the five worlds, live training and the award ceremony" width="900">
 
-**▶ The full trailer, with sound:**
+**▶ The full trailer, with sound** (GitHub starts it muted: click the speaker icon)
 
 https://github.com/user-attachments/assets/888093dd-9c50-4562-9261-e45dfed51ef5
 
